@@ -1,9 +1,9 @@
 #! /bin/bash
 cd <app_location>
-PYTHON=$(which python)
+PYTHON=$(which python3)
 PIP=$(which pip3)
 
-if [ ! -d "./env"]
+if [ ! -d "./env" ]
 then
     ${PYTHON} -m venv env
 fi

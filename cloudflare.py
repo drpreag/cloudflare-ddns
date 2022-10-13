@@ -79,31 +79,31 @@ def main(argv=None):
 
     parseConfig()
     externalIP = getExternalIP()
-    print (f"External IP (ifconfig.me/ip): {externalIP} .")
+    print ("External IP (ifconfig.me/ip): {} .".format(externalIP))
 
     zoneId = getZoneId()
     if (zoneId):
         dnsRecord = getZoneRecord (zoneId)
         if (dnsRecord):
-            print (f"Record {aRecord} found in zone {dnsZone}.")
+            print ("Record {} found in zone {}.".format(aRecord, dnsZone))
             if ( externalIP != dnsRecord['content']):
-                print (f"Updating record to: {externalIP}.")
+                print ("Updating record to: {}.".format(externalIP))
                 updateResult = updateZoneRecord (zoneId, dnsRecord['id'], externalIP)
                 if (updateResult['success']):
-                    print (f"Record {aRecord} succesfully updated to {externalIP}.")
+                    print ("Record {} succesfully updated to {}.".format(aRecord, externalIP))
                 else:
-                    print (f"Error! DNS record cloud not be updated.")
+                    print ("Error! DNS record cloud not be updated.")
             else:
                 print ("Record is up tp date, doing nothing, exiting.")
         else:
-            print (f"Record {aRecord} not found in zone {dnsZone} / {zoneId}.")
+            print ("Record {} not found in zone {} / {}.".format(aRecord, dnsZone, zoneId))
             addResult = addZoneRecord (zoneId, externalIP)
             if (addResult['success']):
-                print (f"Record {aRecord} succesfully added to zone {dnsZone} / {zoneId}.")
+                print ("Record {} succesfully added to zone {} / {}.".format(aRecord, dnsZone, zoneId))
             else:
-                print (f"Error! DNS record could not be added to zone.")
+                print ("Error! DNS record could not be added to zone.")
     else:
-        print (f"Error! Zone {dnsZone} was not found")
+        print ("Error! Zone {} was not found".format(dnsZone))
 
 if __name__ == '__main__':
     main(sys.argv[1:])
