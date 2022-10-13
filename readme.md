@@ -12,28 +12,28 @@
 - Cloudflare account with api key created
 - dns zone on Cloudflare (like example.com)
 - config.txt file set like this:
-<code>
+```
 [cloudflare]
 dns-zone=example.com
 a-record=office.example.com
 api-key=xxxxxxxxxxxxxxxxx
-</code>
+```
 
 # How to use:
 - cd to app_location
 
 - create python environment
-<code>python3 -m venv env</code>
+```python3 -m venv env```
 
 - activate environment
-<code>source env/bin/activate</code>
+```source env/bin/activate```
 
 - install dependencies
-<code>pip install -r requirements.txt</code>
+```pip install -r requirements.txt```
 
 - run application
-<code>python3 cloudflare.py</code>
+```python3 cloudflare.py```
 
 - cleanup
-<code>deactivate</code>
+```deactivate```
 
