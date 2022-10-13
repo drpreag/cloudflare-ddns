@@ -12,20 +12,20 @@ configLocation = "./config.txt"
 
 dnsZone = ""
 aRecord = ""
-apiKey = ""
 headers = {}
 
 def parseConfig ():
-    global dnsZone, aRecord, apiKey, headers
+    global dnsZone, aRecord, headers
     config = configparser.RawConfigParser()
     config.read(configLocation)
     dnsZone = config.get('cloudflare', 'dns-zone')
     aRecord = config.get('cloudflare', 'a-record')
     apiKey = config.get('cloudflare', 'api-key')
+    authEmail = config.get('cloudflare', 'auth-email')
     headers = {
         'Content-Type': 'application/json',
         'X-Auth-Key': apiKey,
-        'X-Auth-Email': 'predrag.vlajkovic@gmail.com'
+        'X-Auth-Email': authEmail
     }
 
 def getExternalIP ():

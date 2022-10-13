@@ -17,6 +17,7 @@
 dns-zone=example.com
 a-record=office.example.com
 api-key=xxxxxxxxxxxxxxxxx
+auth-email=<your cloudflare account email>
 ```
 
 # How to use:
