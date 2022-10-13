@@ -23,17 +23,26 @@ api-key=xxxxxxxxxxxxxxxxx
 - cd to app_location
 
 - create python environment
-```python3 -m venv env```
+```
+python3 -m venv env
+```
 
 - activate environment
-```source env/bin/activate```
+```
+source env/bin/activate
+```
 
 - install dependencies
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```
 
 - run application
-```python3 cloudflare.py```
+```
+python3 cloudflare.py
+```
 
 - cleanup
-```deactivate```
-
+```
+deactivate
+```
