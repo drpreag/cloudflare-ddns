@@ -1,7 +1,9 @@
 #! /bin/bash
-cd <app_location>
+
 PYTHON=$(which python3)
 PIP=$(which pip3)
+
+cd /root/scripts/cloudflare-ddns
 
 if [ ! -d "./env" ]
 then
