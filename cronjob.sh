@@ -1,7 +1,6 @@
 #! /bin/bash
 
 PYTHON=$(which python3)
-PIP=$(which pip3)
 
 cd /root/scripts/cloudflare-ddns
 
@@ -11,10 +10,7 @@ then
 fi
 
 source env/bin/activate
-
-sleep 1
-${PIP} install -r requirements.txt
-sleep 1
-${PYTHON} cloudflare.py
+pip install -r ./requirements.txt
+python cloudflare.py
 
 deactivate
