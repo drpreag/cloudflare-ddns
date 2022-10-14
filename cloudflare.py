@@ -10,12 +10,16 @@ cloudflareUrl = "https://api.cloudflare.com/client/v4/"
 ifconfigUrl = "http://ifconfig.me/ip"
 configLocation = "./config.txt"
 
+# global variables
 dnsZone = ""
 aRecord = ""
 headers = {}
+dnsData = {}
+
 
 def parseConfig ():
     global dnsZone, aRecord, headers
+
     config = configparser.RawConfigParser()
     config.read(configLocation)
     dnsZone = config.get('cloudflare', 'dns-zone')
@@ -29,11 +33,18 @@ def parseConfig ():
     }
 
 def getExternalIP ():
+    global dnsData
+
     response = requests.get (ifconfigUrl)
-    if response.status_code == 200:
+    if (response.status_code == 200):
+        dnsData = {
+            'type': 'A',
+            'name': aRecord,
+            'content': response.text,
+            'ttl': 600
+        }
         return response.text
-    else:
-        return ""
+    return None
 
 def getZoneId ():
     response = requests.get (cloudflareUrl+"/zones/", headers = headers)
@@ -41,7 +52,7 @@ def getZoneId ():
         for zones in response.json()['result']:
             if zones['name'] == dnsZone:
                 return zones['id']
-    return
+    return None
 
 def getZoneRecord (zoneId):
     record = dict()
@@ -56,30 +67,22 @@ def getZoneRecord (zoneId):
     return None
 
 def addZoneRecord (zoneId, externalIP):
-    data = {
-        'type': 'A',
-        'name': aRecord,
-        'content': externalIP,
-        'ttl': 600
-    }
-    response = requests.post (cloudflareUrl+"/zones/"+zoneId+"/dns_records", headers = headers, json = data )
+    response = requests.post (cloudflareUrl+"/zones/"+zoneId+"/dns_records", headers = headers, json = dnsData )
     return response.json()
 
 def updateZoneRecord (zoneId, recordId, externalIP):
-    data = {
-        'type': 'A',
-        'name': aRecord,
-        'content': externalIP,
-        'ttl': 600
-    }
-    response = requests.patch (cloudflareUrl+"/zones/"+zoneId+"/dns_records/"+recordId, headers = headers, json = data )
+    response = requests.patch (cloudflareUrl+"/zones/"+zoneId+"/dns_records/"+recordId, headers = headers, json = dnsData )
     return response.json()
 
 def main(argv=None):
 
     parseConfig()
+
     externalIP = getExternalIP()
-    print ("External IP (ifconfig.me/ip): {} .".format(externalIP))
+    if ( externalIP is None):
+        print ("Error trying to fetch public IP")
+        sys.exit ()
+    print ("External/public IP (via ifconfig.me service): {} .".format(externalIP))
 
     zoneId = getZoneId()
     if (zoneId):
