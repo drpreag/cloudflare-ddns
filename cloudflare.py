@@ -7,7 +7,7 @@ import sys, requests, json, configparser
 from uuid import uuid4
 
 cloudflareUrl = "https://api.cloudflare.com/client/v4/"
-ifconfigUrl = "https://ifconfig.me/ip"
+ifconfigUrl = "http://ifconfig.me/ip"
 configLocation = "./config.txt"
 
 dnsZone = ""
