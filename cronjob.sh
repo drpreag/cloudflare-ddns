@@ -11,7 +11,10 @@ then
 fi
 
 source env/bin/activate
+
+sleep 1
 ${PIP} install -r requirements.txt
+sleep 1
 ${PYTHON} cloudflare.py
 
 deactivate
