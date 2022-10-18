@@ -11,7 +11,7 @@
 - python3
 - Cloudflare account with api key created
 - dns zone on Cloudflare (like example.com)
-- config.txt file set like this:
+- config.txt section like this:
 ```
 [cloudflare]
 dns-zone=example.com
@@ -46,4 +46,14 @@ python3 cloudflare.py
 - cleanup
 ```
 deactivate
+```
+
+
+# Hetzner firewall update
+
+mandatory config.txt section:
+```
+[hetzner]
+firewall-name=<firewall-name>
+hcloud-token=<hetzner-api-token>
 ```

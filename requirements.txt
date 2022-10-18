@@ -2,3 +2,4 @@ termcolor
 uuid
 requests
 configparser
+hcloud
